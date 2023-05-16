@@ -1,0 +1,57 @@
+{% extends 'burse/standart_layout.html' %}
+
+{% block subheader_title %}{{ task.title }}{% endblock %}
+
+{% block subheader_info %}
+<ul id="TaskInfo" class="list list--splitted">
+    <li class="list-item">
+        {% if task.price_from and task.price_to %}
+        {{ task.price_from }}-{{ task.price_to }}p
+        {% elif task.price_from %}
+        от {{ task.price_from }}
+        {% elif task.price_to %}
+        до {{ task.price_to }}
+        {% else %}
+        Договорная
+        {% endif %}
+    </li>
+    <li class="list-item">Заявок: {{ replays.count }}</li>
+    <li class="list-item">{{ task.categories }}</li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="list">
+    <section id="Task" class="block list-item">
+        <h3>{{ user.username }}</h3>
+        <article>
+            {{ task.description|safe }}
+        </article>
+    </section>
+
+    <section id="ReplayList" class="block list-item">
+        <h3>Заявки</h3>
+
+        {% if can_replay %}
+            <form action="{% url 'replays:add' %}?task_id={{ task.id }}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="input-group">
+                    {{ field }}
+                </div>
+                {% endfor %}
+                </textarea>
+                <input type="submit" value="Отправить">
+            </form>
+        {% else %}
+        <p>Вы уже откликнулись</p>
+        {% endif %}
+
+        <ul class="list">
+            {% for replay in replays %}
+            <li class="list-item">{{ replay.user.username }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

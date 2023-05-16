@@ -1,0 +1,18 @@
+{% extends 'burse/standart_layout.html' %}
+
+
+{% block content %}
+<div class="block">
+    <form method="post">
+        {% csrf_token %}
+        {% for item in form %}
+        <div class="input-group">
+            {{ item.label_tag }}
+            {{ item }}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+{% endblock %}

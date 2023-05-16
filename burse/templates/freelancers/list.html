@@ -1,0 +1,21 @@
+{% extends 'burse/standart_layout.html' %}
+
+{% block content %}
+
+<div class="list">
+    <section class="block list-item">
+        <form action="" style="flex-direction: row;">
+            <div class="input-group" style="flex-grow: 1;">
+                <input type="text" name="search" style="width: 100%;" id="search_field" placeholder="Поиск..." required >
+            </div>
+            <input type="submit" value="Поиск">
+        </form>
+    </section>
+
+    {% for account in object_list %}
+    <section class="block list-item">
+        <h3><a class="link" href="">{{ account.username }}</a></h3>
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

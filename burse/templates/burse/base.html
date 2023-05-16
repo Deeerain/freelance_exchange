@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'burse/css/style.css' %}">
+</head>
+
+<body>
+    {% block body_content %}
+    {% include 'burse/includes/header.html' %}
+
+    <main>
+        <div class="container">
+            {% block sidebar %}
+            {% endblock %}
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+
+    {% include 'burse/includes/footer.html' %}
+    {% endblock %}
+</body>
+
+</html>

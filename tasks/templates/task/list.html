@@ -1,0 +1,22 @@
+{% extends 'burse/standart_layout.html' %}
+
+{% block subheader_title %} Заказы {% endblock %}
+
+{% block content %}
+<div class="list">
+    <section class="block list-item">
+        <form action="" style="flex-direction: row;">
+            <div class="input-group" style="flex-grow: 1;">
+                <input type="text" name="search" style="width: 100%;" id="search_field" placeholder="Поиск..." required >
+            </div>
+            <input type="submit" value="Поиск">
+        </form>
+    </section>
+    
+    <section class="task_list list list-item">
+        {% for task in tasks %}
+            {% include 'task/includes/task.html' with task=task %}
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

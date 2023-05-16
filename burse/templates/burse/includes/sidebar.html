@@ -1,0 +1,9 @@
+<aside id="Sidebar" class="block">
+    <a  class="btn" href="{% url 'tasks:create' %}">Разместить задание</a>
+    <ul id="Categories" class="list">
+        <li class="list-item"><a class="link" href="{% url 'tasks:list' %}">Все</a></li>
+        {% for category in categories %}
+        <li class="list-item"><a class="link" href="{{ category.get_absolute_url }}">{{ category }} <span style="opacity: 0.6;">{{ category.count }}</span></a></li>
+        {% endfor %}
+    </ul>
+</aside>

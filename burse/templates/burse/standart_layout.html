@@ -1,0 +1,28 @@
+{% extends 'burse/base.html' %}
+
+{% block body_content %}
+{% include 'burse/includes/header.html' %}
+
+<div class="subheader">
+    <div class="container">
+        {% block subheader %}
+        <h1>{% block subheader_title %}{% endblock %}</h1>
+        {% endblock %}
+        <div class="info">
+            {% block subheader_info %} {% endblock %}
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        {% include 'burse/includes/sidebar.html' %}
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</main>
+
+{% include 'burse/includes/footer.html' %}
+{% endblock %}

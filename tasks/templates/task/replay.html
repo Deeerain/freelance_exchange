@@ -1,0 +1,12 @@
+{% extends 'burse/base.html' %}
+
+
+{% block content %}
+<div class="task_replay">
+    <form action="{% url 'replays:add' %}?task_id={{task.pk}}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Отправить">
+    </form>
+</div>
+{% endblock %}
