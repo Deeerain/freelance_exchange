@@ -6,8 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import ModelFormMixin
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
 from burse.views.mixins import SearchMixin
@@ -19,9 +18,9 @@ from .models import Task
 from .forms import CreateTaskForm
 
 
-class TaskCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     permission_required = 'tasks.add_task'
-    login_url = 'burse:auth'
+    login_url = 'accounts:signin'
     model = Task
     form_class = CreateTaskForm
     template_name = 'task/create.html'

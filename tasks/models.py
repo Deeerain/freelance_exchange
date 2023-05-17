@@ -4,9 +4,18 @@ from django.urls import reverse
 from pytils.translit import slugify
 
 
-from burse.models import Category
-
 USER_MODEL = get_user_model()
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=30, unique=True, db_index=True)
+    slug = models.SlugField(unique=True)
+
+    def get_absolute_url(self) -> str:
+        return reverse('tasks:list_by_category', kwargs={'slug': self.slug})
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Task(models.Model):

@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('burse.urls', namespace='burse')),
+    path('', include('accounts.urls', namespace='accounts')),
     path('replays/', include('replays.urls', namespace='replays')),
     path('tasks/', include('tasks.urls', namespace='tasks')),
     path('offers/', include('offers.urls', namespace='offers')),
@@ -14,4 +15,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
-

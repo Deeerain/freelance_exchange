@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView, ListView
-
-from burse.models import Account
+from accounts.models import User
 
 from .mixins import SearchMixin
 
@@ -10,6 +9,6 @@ class HomeView(TemplateView):
 
 
 class Freelancers(ListView, SearchMixin):
-    model = Account
+    model = User
     template_name = 'freelancers/list.html'
     search_fields = ['user__username']

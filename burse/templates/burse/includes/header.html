@@ -11,10 +11,10 @@
         <ul class="nav">
             {% if user.is_authenticated %}
             <li class="nav-item"><a href="">{{ user.username }}</a></li>
-            <li><a href="{% url 'burse:logout' %}">Выйти</a></li>
+            <li><a href="{% url 'accounts:signout' %}">Выйти</a></li>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'burse:registration' %}">Регистрация</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'burse:auth' %}">Вход</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}">Регистрация</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signin' %}">Вход</a></li>
             {% endif %}
         </ul>
     </div>

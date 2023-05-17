@@ -1,6 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-from burse.models import Account
 from tasks.models import Task
+
+
+USER_MODEL = get_user_model()
 
 
 OFFER_STATE = [
@@ -11,7 +14,7 @@ OFFER_STATE = [
 
 
 class Offer(models.Model):
-    executor = models.ForeignKey(to=Account, on_delete=models.CASCADE)
+    executor = models.ForeignKey(to=USER_MODEL, on_delete=models.CASCADE)
     task = models.ForeignKey(to=Task, on_delete=models.CASCADE)
     state = models.TextField(choices=OFFER_STATE, default=1)
     created = models.DateTimeField(auto_now_add=True)

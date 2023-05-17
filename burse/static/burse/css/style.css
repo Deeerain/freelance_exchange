@@ -29,6 +29,7 @@ body {
 
 .container {
     max-width: 1024px;
+    height: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -146,6 +147,7 @@ main > .container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 main > .container > .content {
@@ -161,4 +163,5 @@ footer {
     min-height: 100px;
     bottom: 0;
     background-color: var(--footer-color);
+    margin-top: 10px;
 }
