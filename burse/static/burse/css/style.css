@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('inputs.css');
+
 
 :root {
     font-family: 'Noto Serif', serif;
@@ -6,7 +8,6 @@
     --header-color: #4836f0;
     --footer-color: #1d1d1d;
 }
-
 
 * {
     margin: 0;
@@ -24,41 +25,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-form {
-    display: flex;
-    flex-direction: column
-}
-
-input, .btn, textarea {
-    background: none;
-    outline: none;
-    padding: 5px;
-    border: none;
-    background-color: #e6e6e6;
-    color: black;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-textarea {
-    width: 100%;
-    resize: none;
-}
-
-.btn, input[type="button"], input[type="submit"] {
-    cursor: pointer;
-}
-
-.input-group {
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group:last-child {
-    margin: 0;
 }
 
 .container {
@@ -104,6 +70,7 @@ textarea {
     flex-direction: row;
     justify-content: space-between;
 }
+
 .task > .task__content {
     flex-grow: 1;
 }
@@ -140,8 +107,8 @@ header > .container {
 
 .subheader {
     background-color: white;
+    padding: 15px 0;
 }
-
 
 .nav {
     display: flex;

@@ -1,0 +1,39 @@
+form {
+    display: flex;
+    flex-direction: column
+}
+
+input, .btn, textarea {
+    background: none;
+    outline: none;
+    padding: 5px;
+    border: none;
+    background-color: #e6e6e6;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+}
+
+.btn, input[type="button"], input[type="submit"] {
+    cursor: pointer;
+}
+
+.input-group {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group:last-child {
+    margin: 0;
+}
+
+form > input[type="submit"] {
+    background-color: rgb(0, 173, 0);
+    color: white;
+}

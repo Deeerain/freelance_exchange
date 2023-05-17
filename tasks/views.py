@@ -1,41 +1,39 @@
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Type
 from django.db import models
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View
-from django.views.generic import ListView, DetailView
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import ModelFormMixin
-from django.contrib.auth.decorators import permission_required, login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.urls import reverse
 
 from replays.models import Replay
 from replays.forms import ReplayForm
 
 from .models import Task
-from burse.models import Category
 from .forms import CreateTaskForm
 
 
-class TaskCreateView(View, LoginRequiredMixin, PermissionRequiredMixin):
+class TaskCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'tasks.add_task'
     login_url = 'burse:auth'
+    model = Task
+    form_class = CreateTaskForm
+    template_name = 'task/create.html'
 
-    def get(self, request):
-        form = CreateTaskForm()
+    def get_form(self,
+                 form_class: Type[BaseModelForm] | None = ...
+                 ) -> BaseModelForm:
 
-        return render(request, 'task/create.html', {
-            'form': form
-        })
-    
-    def post(self, request):
-        form = CreateTaskForm(request.POST)
+        return self.form_class(self.request.POST)
 
-        if form.is_valid():
-            task = Task(**form.cleaned_data)
-            task.employer = request.user
-            task.save()
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        task = Task(**form.cleaned_data)
+        task.employer = self.request.user
+        task.save()
 
         return redirect(reverse('tasks:list'))
 
@@ -51,7 +49,8 @@ class TaksListView(ListView):
         if slug := self.kwargs.get('slug'):
             objects = objects.filter(slug=slug)
 
-        [setattr(item, 'replay_count', Replay.get_count_from_task(item)) for item in objects]
+        [setattr(item, 'replay_count',
+                 Replay.get_count_from_task(item)) for item in objects]
 
         return objects
 
@@ -62,7 +61,10 @@ class TaskDetailView(DetailView, ModelFormMixin):
     context_object_name = 'task'
     template_name = 'task/detail.html'
 
-    def get_form(self, form_class: Type[BaseModelForm] | None = ...) -> BaseModelForm:
+    def get_form(self,
+                 form_class: Type[BaseModelForm] | None = ...
+                 ) -> BaseModelForm:
+
         return self.form_class()
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> models.Model:
@@ -73,6 +75,7 @@ class TaskDetailView(DetailView, ModelFormMixin):
 
         replays = Replay.objects.filter(task=self.get_object())
         context['replays'] = replays
-        context['can_replay'] = replays.filter(user=self.request.user).count() <= 0
+        context['can_replay'] = replays.filter(user=self.request.user
+                                               ).count() <= 0
 
         return context
