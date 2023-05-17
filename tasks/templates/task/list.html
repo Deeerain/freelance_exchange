@@ -7,7 +7,7 @@
     <section class="block list-item">
         <form action="" style="flex-direction: row;">
             <div class="input-group" style="flex-grow: 1;">
-                <input type="text" name="search" style="width: 100%;" id="search_field" placeholder="Поиск..." required >
+                <input type="text" name="search" style="width: 100%;" id="search_field" placeholder="Поиск..." value="{{ request.GET.search }}">
             </div>
             <input type="submit" value="Поиск">
         </form>

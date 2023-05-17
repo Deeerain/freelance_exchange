@@ -14,5 +14,5 @@ class Replay(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     @staticmethod
-    def get_count_from_task( task):
+    def get_count_from_task(task):
         return Replay.objects.filter(task=task).count()

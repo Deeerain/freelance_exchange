@@ -1,25 +1,15 @@
-from django.forms.models import BaseModelForm
-from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, ListView, CreateView
+from django.http import HttpResponse
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import CreateView
+from django.forms.models import BaseModelForm
 
-from .models import Account
-from .forms import RegistrationForm
+from burse.forms import RegistrationForm
 
 
 USER_MODEL: AbstractBaseUser = get_user_model()
-
-
-class HomeView(TemplateView):
-    template_name = 'burse/index.html'
-
-
-class Freelancers(ListView):
-    model = Account
-    template_name = 'freelancers/list.html'
 
 
 class LoginView(LoginView):
