@@ -2,13 +2,15 @@ from typing import Any, Dict
 from django import forms
 from django.contrib.auth import get_user_model
 
+from django.utils.translation import gettext_lazy as _
+
 
 USER_MODEL = get_user_model()
 
 
 class ReplayFrom(forms.Form):
     comment = forms.CharField(
-        widget=forms.Textarea(attrs={'placeholder': 'Комментарий...'}))
+        widget=forms.Textarea())
 
 
 class LoginForm(forms.Form):
@@ -30,7 +32,7 @@ class RegistrationForm(forms.ModelForm):
         password_repeat = data.get('password_repeat')
 
         if not password == password_repeat:
-            msg = "Пароли не сходятся"
+            msg = _("Passwords don't match")
             self.add_error('password_repeat', msg)
 
         return data
