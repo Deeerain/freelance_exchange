@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'tasks',
     'replays',
     'offers',
+    'chatting',
 ]
 
 MIDDLEWARE = [
