@@ -2,7 +2,12 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.utils.translation import gettext_lazy as _
 
+
+admin.site.site_title = _('Exchange')
+admin.site.site_header = _('Administration panel')
+admin.site.index_title = _('Exchange administration')
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),

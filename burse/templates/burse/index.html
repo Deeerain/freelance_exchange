@@ -1,6 +1,7 @@
 {% extends 'burse/base.html' %}
+{% load i18n %}
 
 {% block content %}
-<a href="{% url 'tasks:list' %}">Работы</a>
+<a href="{% url 'tasks:list' %}">{% translate 'Orders' %}</a>
 
 {% endblock %}

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'exchange_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'accounts',
     'burse',
+    'accounts',
     'tasks',
     'replays',
     'offers',
@@ -62,7 +63,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,18 +129,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [
-    'accounts.locale'
-]
-
 LANGUAGES = [
     ("ru", _("Russian")),
     ("en", _("English")),
 ]
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale'
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+STATIC_ROOT = BASE_DIR / 'static'
 
 STATIC_URL = 'static/'
 

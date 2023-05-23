@@ -1,0 +1,30 @@
+.dark {
+    color: var(--dark);
+}
+
+.dark-lightly {
+    color: var(--dark-lightly);
+}
+
+.primary-color {
+    color: var(--primary-color);
+}
+
+.bg.dark {
+    background-color: var(--dark);
+}
+
+.bg.dark-lightly {
+    color: var(--dark-lightly);
+}
+
+.bg.primary-color {
+    color: var(--primary-color);
+}
+
+.btn, input[type="submit"] {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--primary-color);
+}

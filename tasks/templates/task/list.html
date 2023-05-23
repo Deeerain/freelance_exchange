@@ -1,22 +1,35 @@
 {% extends 'burse/standart_layout.html' %}
 
-{% block subheader_title %} Заказы {% endblock %}
-
 {% block content %}
-<div class="list">
-    <section class="block list-item">
-        <form action="" style="flex-direction: row;">
-            <div class="input-group" style="flex-grow: 1;">
-                <input type="text" name="search" style="width: 100%;" id="search_field" placeholder="Поиск..." value="{{ request.GET.search }}">
-            </div>
-            <input type="submit" value="Поиск">
-        </form>
-    </section>
-    
-    <section class="task_list list list-item">
-        {% for task in tasks %}
-            {% include 'task/includes/task.html' with task=task %}
-        {% endfor %}
-    </section>
+<div class="task-list">
+    {% for item in tasks %}
+    {% include 'task/includes/task.html' with task=item %}
+    {% endfor %}
+
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <div class="previous">
+            <a class="material-symbols-outlined" href="?page={{ page_obj.previous_page_number }}">arrow_back</a>
+        </div>
+        {% endif %}
+        <div class="digits">
+            <a href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href="">6</a>
+            <a href="">7</a>
+            <a href="">8</a>
+        </div>
+
+        {% if page_obj.has_next %}
+        <div class="next">
+            <a class="material-symbols-outlined" href="?page={{ page_obj.next_page_number }}">arrow_forward</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

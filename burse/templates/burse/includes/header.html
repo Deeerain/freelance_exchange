@@ -1,21 +1,30 @@
+{% load i18n %}
+
 <header>
     <div class="container">
-        <ul id="TopMenu" class="nav">
-            <li class="nav-item"><a class="nav-link" href="/">Burse Freelance</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'burse:freelancer_list' %}">Фрилансеры</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-        </ul>
+        <button id="MenuButton" class="btn material-symbols-outlined toggler hidden" data-selector="nav">menu</button>
+        <div class="brand">
+            <h2><a href="/">Freelance Exchange</a></h2>
+        </div>
 
-        <ul class="nav">
-            {% if user.is_authenticated %}
-            <li class="nav-item"><a href="">{{ user.username }}</a></li>
-            <li><a href="{% url 'accounts:signout' %}">Выйти</a></li>
-            {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}">Регистрация</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signin' %}">Вход</a></li>
-            {% endif %}
-        </ul>
+        <nav>
+            <button id="NavButtonClose" class="btn material-symbols-outlined toggler hidden" data-selector="nav">close</button>
+            <h3><a href="{% url 'tasks:list' %}">Заказы</a></h2>
+            <h3><a href="{% url 'burse:freelancer_list' %}">Фрилансеры</a></h2>
+            <h3><a href="">Блог</a></h2>
+        </nav>
+
+        <div class="account">
+            <div class="profile">
+                <h3><a href="">Username</a></h3>
+                <div class="menu">
+                    <a href="">Мой профиль</a>
+                    <a href="">Мои заказы</a>
+                    <a href="">Мой отклики</a>
+                    <a class="material-symbols-outlined" href="">logout</a>
+                </div>
+            </div>
+            <a class="material-symbols-outlined" href="">login</a>
+        </div>
     </div>
 </header>

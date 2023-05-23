@@ -38,6 +38,7 @@ class TaksListView(ListView, SearchMixin):
     context_object_name = 'tasks'
     template_name = 'task/list.html'
     search_fields = ['title', 'description']
+    paginate_by = 1
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
@@ -45,13 +46,13 @@ class TaksListView(ListView, SearchMixin):
         filter_values = {}
         filter_values['visible'] = True
 
-        if slug := self.kwargs.get('slug'):
-            filter_values['slug'] = slug
+        if filter_value := self.kwargs.get('slug'):
+            filter_values['categories__slug'] = filter_value
 
         [setattr(item, 'replay_count',
                  Replay.get_count_from_task(item)) for item in queryset]
 
-        return queryset.filter(visible=True)
+        return queryset.filter(**filter_values)
 
 
 class TaskDetailView(DetailView, ModelFormMixin):

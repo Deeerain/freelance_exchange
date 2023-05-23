@@ -1,32 +1,14 @@
-<div class="task block list-item">
-    <div class="task__content">
-        <div class="task__header">
-            <h3><a class="link" href="{{ task.get_absolute_url }}">{{ task }}</a></h3>
+<section class="task-list__item task">
+    <div class="task__header">
+        <a href="{% url 'tasks:detail' slug=task.slug category_slug=task.categories.slug  %}"><h1>{{ task.title }}</h1></a>
+        <div>
+            {{ task.description|safe }}
         </div>
-    
-        <div class="task__body">
-            <p>{{ task.description }}</p>
-        </div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore nam provident tempore veniam error. Deserunt nesciunt perspiciatis totam dignissimos quasi.</p>
     </div>
-    <div class="task__meta">
-        {% if task.price_from and task.price_to %}
-        <span style="color: green;font-size: 14pt;">{{ task.price_from }} - {{ task.price_to }} P</span>
-        {% elif task.price_from %}
-        <span style="color: green;font-size: 14pt;">От {{ task.price_from }}</span>
-        {% elif task.price_to %}
-        <span style="color: green;font-size: 14pt;">До {{ task.price_from }}</span>
-        {% else %}
-        <span style="color: green;font-size: 14pt;">Договорная</span>
-        {% endif %}
-
-        <span style="opacity: 0.6;">
-            {% if task.replay_count > 0 %}
-            {{ task.replay_count }}
-            {% else %}
-            Нет откликов
-            {% endif %}
-        </span>
-
-        <span style="opacity: 0.7;">{{ task.created|date }}</span>
+    <div class="task__info">
+        <span>{{ task.price }}</span>
+        <span><small>Откликов</small> {{ task.replay_count }}</span>
+        <time>{{ task.created }}</time>
     </div>
-</div>
+</section>
