@@ -8,7 +8,14 @@
     </div>
     <div class="task__info">
         <span>{{ task.price }}</span>
-        <span><small>Откликов</small> {{ task.replay_count }}</span>
+        <span>
+            {% if task.replay_count %}
+            <small>Откликов</small>
+            {{ task.reply_count }}
+            {% else %}
+            <small>Без откликов</small>
+            {% endif %}
+        </span>
         <time>{{ task.created }}</time>
     </div>
 </section>

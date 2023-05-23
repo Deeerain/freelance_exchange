@@ -182,8 +182,14 @@ aside a {
 }
 
 .pagination {
-    display: grid;
-    grid-template-columns: max-content auto max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pagination .digits {
+    justify-self: center;
+    flex-grow: 1;
 }
 
 .pagination .digits {

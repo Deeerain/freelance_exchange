@@ -14,14 +14,13 @@
         </div>
         {% endif %}
         <div class="digits">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">6</a>
-            <a href="">7</a>
-            <a href="">8</a>
+            {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+            <span>{{ page }}</span>
+            {% else %}
+            <a href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+            {% endfor %}
         </div>
 
         {% if page_obj.has_next %}

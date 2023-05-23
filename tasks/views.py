@@ -38,7 +38,7 @@ class TaksListView(ListView, SearchMixin):
     context_object_name = 'tasks'
     template_name = 'task/list.html'
     search_fields = ['title', 'description']
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
