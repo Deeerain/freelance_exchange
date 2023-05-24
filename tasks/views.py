@@ -35,13 +35,11 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
 class TaksListView(ListView, SearchMixin):
     model = Task
-    context_object_name = 'tasks'
     template_name = 'task/list.html'
     search_fields = ['title', 'description']
     paginate_by = 10
 
     def get_queryset(self) -> QuerySet[Any]:
-        queryset = super().get_queryset()
 
         filter_values = {}
         filter_values['visible'] = True
@@ -49,10 +47,8 @@ class TaksListView(ListView, SearchMixin):
         if filter_value := self.kwargs.get('slug'):
             filter_values['categories__slug'] = filter_value
 
-        [setattr(item, 'replay_count',
-                 Replay.get_count_from_task(item)) for item in queryset]
-
-        return queryset.filter(**filter_values)
+        return Task.objects.select_related('categories').annotate(
+            replay_count=models.Count('replay')).filter(**filter_values)
 
 
 class TaskDetailView(DetailView, ModelFormMixin):
