@@ -1,15 +1,10 @@
-
 {% load i18n %}
 <aside>
     <button id="AsideCloseButton" class="btn material-symbols-outlined toggler hidden" data-selector="aside" >close</button>
     <section>
         <a class="btn" href="{% url 'tasks:create' %}">{% translate 'Post a task' %} <span class="material-symbols-outlined">add_box</span></a>
     </section>
-    <ul>
-        <li class="list-item"><a class="link" href="{% url 'tasks:list' %}">{% translate "All" %}</a></li>
-        
-        {% for category in categories %}
-        <li><a href="{{ category.get_absolute_url }}">{{ category }} <span style="opacity: 0.6;">{{ category.count }}</span></a></li>
-        {% endfor %}
-    </ul>
+
+    {% load categories %}
+    {% draw_categories %}
 </aside>

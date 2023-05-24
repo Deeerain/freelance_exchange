@@ -18,6 +18,8 @@ urlpatterns = [
     path('tasks/', include('tasks.urls', namespace='tasks')),
     path('offers/', include('offers.urls', namespace='offers')),
     path('chats/', include('chatting.urls', namespace='chatting')),
+
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 if settings.DEBUG:

@@ -11,6 +11,9 @@ class Category(models.Model):
     name = models.CharField(max_length=30, unique=True, db_index=True)
     slug = models.SlugField(unique=True)
 
+    def get_count(self) -> str:
+        return Task.objects.filter(categories=self, visible=True).count()
+
     def get_absolute_url(self) -> str:
         return reverse('tasks:list_by_category', kwargs={'slug': self.slug})
 
