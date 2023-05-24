@@ -1,6 +1,13 @@
 form {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form > p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 input, .btn, textarea {
@@ -8,8 +15,8 @@ input, .btn, textarea {
     outline: none;
     padding: 5px;
     border: none;
-    background-color: #e6e6e6;
     color: black;
+    background-color: var(--white-color);
     border-radius: 5px;
     text-decoration: none;
 }
@@ -19,21 +26,10 @@ textarea {
     resize: none;
 }
 
-.btn, input[type="button"], input[type="submit"] {
+.btn,
+input[type="button"],
+input[type="submit"] {
     cursor: pointer;
-}
-
-.input-group {
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group:last-child {
-    margin: 0;
-}
-
-form > input[type="submit"] {
-    background-color: rgb(0, 173, 0);
-    color: white;
+    background: none;
+    color: var(--primary-color);
 }

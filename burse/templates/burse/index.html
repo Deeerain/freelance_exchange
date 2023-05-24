@@ -1,6 +1,10 @@
 {% extends 'burse/base.html' %}
 {% load i18n %}
 
+{% block content_header %}{% endblock %}
+
+{% block aside %}{% endblock %}
+
 {% block content %}
 <a href="{% url 'tasks:list' %}">{% translate 'Orders' %}</a>
 

@@ -14,3 +14,5 @@ for (let toggler of togglers) {
         }
     })
 }
+
+console.log(sessionStorage)

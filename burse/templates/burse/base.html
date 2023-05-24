@@ -23,14 +23,19 @@
                 {% include 'burse/includes/sidebar.html' %}
                 {% endblock %}
                 <div class="content">
+                    {% block content_header %}
                     <div class="header">
                         <button id="FilterButton" class="btn material-symbols-outlined toggler hidden" data-selector="aside">filter_list</button>
-                        <h1>Список заказов</h1>
+                        <h1>{% block content_header_title %}{% endblock %}</h1>
+                        {% block search_bar %}
                         <div id="SearchBox" class="search-box collapsed">
                             <input form="SearchForm" formaction="submit" type="text" name="search" placeholder="Поиск">
                             <span id="SearchBoxButton" class="material-symbols-outlined">search</span>
+                            <form action="search" method="get" id="SearchForm"></form>
                         </div>
+                        {% endblock %}
                     </div>
+                    {% endblock %}
 
                     {% block content %}
                     {% endblock %}
@@ -39,13 +44,9 @@
             </div>
         </main>
         {% include 'burse/includes/footer.html' %}
-
-        {% load static %}
-        <script src="{% static 'burse/js/index.js' %}"></script>
-
-        <form action="search" method="get" id="SearchForm"></form>
     </div>
 
-    <script src="/js/index.js"></script>
+    {% load static %}
+    <script src="{% static 'burse/js/index.js' %}" type="module"></script>
 </body>
 </html>

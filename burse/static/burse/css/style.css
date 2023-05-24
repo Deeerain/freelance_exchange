@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;0,500;1,400&display=swap');
 @import url('general.css');
 @import url('tasks.css');
+@import url('inputs.css');
 
 :root {
     --dark: #222831;
@@ -41,7 +42,7 @@ body, html {
     font-size: 14px;
 }
 
-nav, header .account, header .account .menu {
+nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -66,6 +67,9 @@ nav, header .account, header .account .menu {
     padding: 0 1rem;
 }
 
+
+/* HEADER */
+
 header {
     color: var(--white-color);
     background-color: var(--dark);
@@ -82,10 +86,16 @@ header a {
 }
 
 header .container {
-    display: grid;
-    grid-template-columns: max-content auto max-content;
+    display: flex;
+    justify-content: space-between;
     gap: 1rem;
 }
+
+header nav {
+    flex-grow: 1;
+} 
+
+/* HEAADER NAV */
 
 header nav button {
     display: none;
@@ -99,31 +109,38 @@ header nav > *:last-child {
     margin: none;
 }
 
-header .container *:last-child {
-    justify-self: right;
-}
-
-.profile {
-    display: none;
-}
-
 main .container {
-    display: grid;
-    grid-template-columns: max-content auto max-content;
+    display: flex;
+    flex-direction: row;
     gap: 1rem;
 }
+
+header .account {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    width: 100px;
+}
+
+header .account .menu {
+    display: none;
+    flex-direction: column;
+    right: 0;
+    margin-top: 5px;
+    gap: 1rem;
+    position: absolute;
+    background-color: var(--dark);
+    padding: 5px;
+}
+
+
+/* SIDEBAR */
 
 aside {
     display: flex;
     flex-direction: column;
-}
-
-aside > * {
-    padding: var(--padding);
-}
-
-aside > *{
-    border-bottom: 1px solid var(--dark-lightly);
+    gap: 1rem;
 }
 
 aside a {
@@ -131,8 +148,9 @@ aside a {
 }
 
 .content {
-    display: grid;
-    grid-template-rows: max-content auto;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     gap: 1rem;
 }
 
@@ -206,6 +224,20 @@ aside a {
     margin-right: 0;
 }
 
+form[id="SearchForm"] {
+    display: none;
+}
+
+#Registration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Registration form {
+    width: 50%;
+}
+
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
 }
@@ -235,10 +267,6 @@ aside a {
 
     main .container {
         grid-template-columns: auto;
-    }
-
-    .content .header {
-        grid-template-columns: 30px auto max-content
     }
 
     aside {

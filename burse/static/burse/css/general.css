@@ -26,5 +26,9 @@
     border: none;
     background: none;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     color: var(--primary-color);
 }

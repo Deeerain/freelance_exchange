@@ -15,16 +15,19 @@
         </nav>
 
         <div class="account">
+            {% if user.is_authenticated %}
             <div class="profile">
-                <h3><a href="">Username</a></h3>
-                <div class="menu">
+                <h3 class="toggler btn" data-selector="#AccoutMenu">{{ user.username }}</h3>
+                <div id="AccoutMenu" class="menu">
                     <a href="">Мой профиль</a>
                     <a href="">Мои заказы</a>
                     <a href="">Мой отклики</a>
-                    <a class="material-symbols-outlined" href="">logout</a>
+                    <a class="btn" href="{% url 'accounts:signout' %}">Выход <span class="material-symbols-outlined">logout</span></a>
                 </div>
             </div>
-            <a class="material-symbols-outlined" href="">login</a>
+            {% else %}
+            <a class="material-symbols-outlined" href="{% url 'accounts:signin' %}">login</a>
+            {% endif %}
         </div>
     </div>
 </header>
