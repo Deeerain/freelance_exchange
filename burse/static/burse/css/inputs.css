@@ -7,7 +7,6 @@ form {
 form > p {
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 input, .btn, textarea {

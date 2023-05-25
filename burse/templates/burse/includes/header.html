@@ -19,9 +19,10 @@
             <div class="profile">
                 <h3 class="toggler btn" data-selector="#AccoutMenu">{{ user.username }}</h3>
                 <div id="AccoutMenu" class="menu">
-                    <a href="">Мой профиль</a>
-                    <a href="">Мои заказы</a>
-                    <a href="">Мой отклики</a>
+                    <a href="{% url 'accounts:profile' %}">Мой профиль</a>
+                    <a href="{% url 'accounts:profile' %}">Сообщения</a>
+                    <a href="{% url 'accounts:tasks' %}">Мои заказы</a>
+                    <a href="{% url 'accounts:replays' %}">Мой отклики</a>
                     <a class="btn" href="{% url 'accounts:signout' %}">Выход <span class="material-symbols-outlined">logout</span></a>
                 </div>
             </div>
