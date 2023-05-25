@@ -4,6 +4,7 @@
     justify-content: space-between;
     gap: 1rem;
     padding: var(--padding);
+    border-bottom: 2px solid var(--dark);
 }
 
 .task .task__header, .task .task__info {
@@ -18,16 +19,22 @@
     flex-grow: 1;
 }
 
-.task .task__header a {
+.task-list .task .task__header a {
     color: var(--dark);
 }
 
-.task .task__header a:hover {
+.task-list .task .task__header a:hover {
     color: red;
 }
 
 .task .task__content {
     flex-grow: 1;
+}
+
+.task .task__employer {
+    border-bottom: 1px solid var(--dark);
+    border-top: 1px solid var(--dark);
+    padding: 10px 0;
 }
 
 .task-list {

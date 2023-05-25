@@ -1,37 +1,62 @@
 {% extends 'burse/base.html' %}
 
+{% block extra_styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+
+{% endblock %}
+
+{% block content_header %} {% endblock %}
+
+{% block aside %} {% endblock %}
+
 {% block content %}
 <div class="task">
     <div class="task__header">
         <h2>{{ task.title }}</h2>
+        {% if item.price %}
+        <h3>{{ task.price }}</h3>
+        {% else %}
+        <h3>По договоренности</h3>
+        {% endif %}
     </div>
-    <div class="task__description">
-        <div>
-            {{ task.description|safe }}
-        </div>
-    </div>
-    <div class="task__info">
-        <span>500₽</span>
-        <span><small>Откликов</small> {{ task.replay_count }}</span>
-        <time>{{ task.created|date }}</time>
-    </div>
-    <div class="task__customer">
-        <h2>{{ task.user.username }}</h2>
+    <div class="task__employer">
+        <h2>{{ task.employer }}</h2>
         <span>Заказов: 30</span>
         <span>Рейтинг: 4.5</span>
     </div>
+    <div class="task_content">
+        {{ task.description|safe }}
+    </div>
+    <div class="task__info">
+        <span>
+            {% if item.replay_count %}
+            <small>Откликов: {{ item.replay_count }}</small>
+            {% else %}
+            <small>Без откликов</small>
+            {% endif %}
+        </span>
+        <time>{{ task.created }}</time>
+    </div>
 
-    <div class="replays">
-        <h3>Отклики</h3>
-        <a href="{% url 'tasks:replay' category_slug=task.category.slug slug=task.slug  %}">Откликнутся</a>
-        <div class="replay-list">
-            {% for item in task.replays.all %}
-            <div class="replay">
-                <h2>{{ item.user.username }}</h2>
-                <span>Рейтинг 3.4</span>
-            </div>
-            {% endfor %}
-        </div>
+    <div class="task__replay">
+        <p>Оставьте ваш отклик</p>
+        <form action="{% url 'replays:add' %}?task_id={{ task.pk }}" method="post">
+            {% csrf_token %}
+            {{ replay_form.as_p }}
+            <input type="submit" value="Отправить">
+        </form>
     </div>
 </div>
+
+<div>
+    <p>Другие заказы по специализации "{{ task.category }}"</p>
+    <div class="task-list">
+        {% load tasks %}
+        {% draw_tasks category=task.category.pk %}
+    </div>
+    <a href="{% url 'tasks:list' %}">Посмотреть все заказы</a>
+</div>
+
+
 {% endblock %}

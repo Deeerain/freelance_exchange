@@ -55,7 +55,7 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('tasks:detail', kwargs={
-            'category_slug': self.categories.slug, 'slug': self.slug
+            'category_slug': self.category.slug, 'slug': self.slug
             })
 
     def __str__(self) -> str:

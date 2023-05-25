@@ -1,0 +1,29 @@
+{% for item in tasks %}
+<section class="task-list__item task">
+    <div class="task__header">
+        <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+        
+        {% if item.price %}
+        <h3>{{ item.price }}</h3>
+        {% else %}
+        <h3>По договоренности</h3>
+        {% endif %}
+    </div>
+
+    <div class="task__content">
+        {{ item.description|safe }}
+    </div>
+    <div class="task__info">
+
+        <span>
+            {% if item.replay_count %}
+            <small>Откликов: </small>
+            {{ item.replay_count }}
+            {% else %}
+            <small>Без откликов</small>
+            {% endif %}
+        </span>
+        <time>{{ item.created }}</time>
+    </div>
+</section>
+{% endfor %}
