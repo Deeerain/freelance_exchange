@@ -25,7 +25,7 @@
         <h3>Отклики</h3>
 
         <div class="replay-list">
-            {% for item in replays %}
+            {% for item in task.replays.all %}
             <div class="replay">
                 <h2>{{ item.user.username }}</h2>
                 <span>Рейтинг 3.4</span>

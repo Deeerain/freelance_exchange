@@ -8,7 +8,8 @@ USER_MODEL = get_user_model()
 
 
 class Replay(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE,
+                             related_name='replays')
     user = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE)
     commet = models.TextField(max_length=1000)
     created = models.DateTimeField(auto_now_add=True)

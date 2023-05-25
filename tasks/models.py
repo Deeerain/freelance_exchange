@@ -33,8 +33,8 @@ class Task(models.Model):
                                      null=True, blank=True)
     price_to = models.DecimalField(max_digits=10, decimal_places=2, null=True,
                                    blank=True)
-    categories = models.ForeignKey(Category, null=True, blank=True,
-                                   on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     slug = models.SlugField(blank=True, unique=True)
 
     def save(self, *args, **kwargs) -> None:
@@ -49,3 +49,20 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(USER_MODEL, related_name='feedbacks',
+                             null=True,
+                             on_delete=models.SET_NULL)
+    task = models.ForeignKey(Task, null=True, on_delete=models.SET_NULL)
+    text = models.TextField('Текст', max_length=1000)
+    evaluation = models.DecimalField('Оценка', max_digits=5, decimal_places=1)
+    created = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self) -> str:
+        return self.text

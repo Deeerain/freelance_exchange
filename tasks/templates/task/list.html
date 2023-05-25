@@ -8,7 +8,7 @@
     {% for item in paginator.object_list %}
     <section class="task-list__item task">
         <div class="task__header">
-            <a href="{% url 'tasks:detail' slug=item.slug category_slug=item.categories.slug  %}"><h1>{{ item.title }}</h1></a>
+            <a href="{% url 'tasks:detail' slug=item.slug category_slug=item.category.slug  %}"><h1>{{ item.title }}</h1></a>
             <div>
                 {{ item.description|safe }}
             </div>

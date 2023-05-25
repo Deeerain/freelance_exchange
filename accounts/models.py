@@ -20,6 +20,8 @@ class User(AbstractUser):
     roles = models.ManyToManyField(
         verbose_name=_('Roles'), to=Role, db_index=True)
 
+    description = models.TextField('Описание', max_length=1000, blank=True)
+
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
