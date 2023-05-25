@@ -3,8 +3,8 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.shortcuts import redirect, get_object_or_404, render
+from django.views.generic import ListView, DetailView, CreateView, View
 from django.views.generic.edit import ModelFormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -14,6 +14,7 @@ from replays.forms import ReplayForm
 
 from .models import Task
 from .forms import CreateTaskForm
+from replays.models import Replay
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -61,3 +62,18 @@ class TaskDetailView(DetailView, ModelFormMixin):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         return context
+
+
+class TaskReplayView(View):
+    def get(self, request, category_slug, slug):
+        task = get_object_or_404(Task, slug=slug)
+        can_replay = not Replay.objects.filter(
+            user=self.request.user, task=task).exists()
+
+        form = ReplayForm()
+
+        return render(request, 'task/replay.html', {
+            'object': task,
+            'can_replay': can_replay,
+            'form': form,
+        })

@@ -25,4 +25,4 @@ class ReplayCreateView(CreateView):
         replay.save()
 
         return redirect(reverse('tasks:detail', kwargs={
-            'category_slug': task.categories.slug, 'slug': task.slug}))
+            'category_slug': task.category.slug, 'slug': task.slug}))

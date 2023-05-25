@@ -3,10 +3,14 @@
 
 {% block content %}
 <div class="task_replay">
-    <form action="{% url 'replays:add' %}?task_id={{task.pk}}" method="post">
+    {% if can_replay %}
+    <form action="{% url 'replays:add' %}?task_id={{object.pk}}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Отправить">
     </form>
+    {% else %}
+    <p>Вы уже откликнулись</p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -23,7 +23,7 @@
 
     <div class="replays">
         <h3>Отклики</h3>
-
+        <a href="{% url 'tasks:replay' category_slug=task.category.slug slug=task.slug  %}">Откликнутся</a>
         <div class="replay-list">
             {% for item in task.replays.all %}
             <div class="replay">
