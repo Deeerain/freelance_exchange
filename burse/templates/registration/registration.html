@@ -1,0 +1,17 @@
+{% extends 'burse/base.html' %}
+{% load i18n %}
+
+{% block aside %} {% endblock %}
+
+{% block content_header %}{% endblock %}
+
+{% block content %}
+<div id="Registration">
+    <form id="RegistrationForm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Регистрация">
+    </form>
+    <p>Уже есть учетная запись? <a href="{% url 'accounts:signin' %}">Войти.</a></p>
+</div>
+{% endblock %}

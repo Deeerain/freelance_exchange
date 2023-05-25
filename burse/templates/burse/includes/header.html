@@ -1,20 +1,33 @@
+{% load i18n %}
+
 <header>
     <div class="container">
-        <ul id="TopMenu" class="nav">
-            <li class="nav-item"><a class="nav-link" href="/">Burse Freelance</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'burse:freelancer_list' %}">Фрилансеры</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'tasks:list' %}">Заказы</a></li>
-        </ul>
+        <button id="MenuButton" class="btn material-symbols-outlined toggler hidden" data-selector="nav">menu</button>
+        <div class="brand">
+            <h2><a href="/">Freelance Exchange</a></h2>
+        </div>
 
-        <ul class="nav">
+        <nav>
+            <button id="NavButtonClose" class="btn material-symbols-outlined toggler hidden" data-selector="nav">close</button>
+            <h3><a href="{% url 'tasks:list' %}">Заказы</a></h2>
+            <h3><a href="{% url 'burse:freelancer_list' %}">Фрилансеры</a></h2>
+            <h3><a href="">Блог</a></h2>
+        </nav>
+
+        <div class="account">
             {% if user.is_authenticated %}
-            <li class="nav-item"><a href="">{{ user.username }}</a></li>
+            <div class="profile">
+                <h3 class="toggler btn" data-selector="#AccoutMenu">{{ user.username }}</h3>
+                <div id="AccoutMenu" class="menu">
+                    <a href="">Мой профиль</a>
+                    <a href="">Мои заказы</a>
+                    <a href="">Мой отклики</a>
+                    <a class="btn" href="{% url 'accounts:signout' %}">Выход <span class="material-symbols-outlined">logout</span></a>
+                </div>
+            </div>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="">Регистрация</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'burse:auth' %}">Вход</a></li>
+            <a class="material-symbols-outlined" href="{% url 'accounts:signin' %}">login</a>
             {% endif %}
-        </ul>
+        </div>
     </div>
 </header>

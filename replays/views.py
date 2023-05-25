@@ -1,4 +1,3 @@
-from typing import Any, Type
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -15,9 +14,6 @@ class ReplayCreateView(CreateView):
     model = Task
     form_class = ReplayForm
 
-    def get_form(self, form_class: Type[BaseModelForm] | None = ...) -> BaseModelForm:
-        return self.form_class(self.request.POST)
-    
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         task_id = self.request.GET.get('task_id')
         task = get_object_or_404(self.model, pk=task_id)
@@ -28,4 +24,5 @@ class ReplayCreateView(CreateView):
         replay.commet = form.cleaned_data['comment']
         replay.save()
 
-        return redirect(reverse('tasks:detail', kwargs={'category_slug': task.categories.slug, 'slug': task.slug}))
+        return redirect(reverse('tasks:detail', kwargs={
+            'category_slug': task.categories.slug, 'slug': task.slug}))

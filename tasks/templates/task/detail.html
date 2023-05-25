@@ -1,57 +1,37 @@
-{% extends 'burse/standart_layout.html' %}
-
-{% block subheader_title %}{{ task.title }}{% endblock %}
-
-{% block subheader_info %}
-<ul id="TaskInfo" class="list list--splitted">
-    <li class="list-item">
-        {% if task.price_from and task.price_to %}
-        {{ task.price_from }}-{{ task.price_to }}p
-        {% elif task.price_from %}
-        от {{ task.price_from }}
-        {% elif task.price_to %}
-        до {{ task.price_to }}
-        {% else %}
-        Договорная
-        {% endif %}
-    </li>
-    <li class="list-item">Заявок: {{ replays.count }}</li>
-    <li class="list-item">{{ task.categories }}</li>
-</ul>
-{% endblock %}
+{% extends 'burse/base.html' %}
 
 {% block content %}
-<div class="list">
-    <section id="Task" class="block list-item">
-        <h3>{{ user.username }}</h3>
-        <article>
+<div class="task">
+    <div class="task__header">
+        <h2>{{ task.title }}</h2>
+    </div>
+    <div class="task__description">
+        <div>
             {{ task.description|safe }}
-        </article>
-    </section>
+        </div>
+    </div>
+    <div class="task__info">
+        <span>500₽</span>
+        <span><small>Откликов</small> {{ task.replay_count }}</span>
+        <time>{{ task.created|date }}</time>
+    </div>
+    <div class="task__customer">
+        <h2>{{ task.user.username }}</h2>
+        <span>Заказов: 30</span>
+        <span>Рейтинг: 4.5</span>
+    </div>
 
-    <section id="ReplayList" class="block list-item">
-        <h3>Заявки</h3>
+    <div class="replays">
+        <h3>Отклики</h3>
 
-        {% if can_replay %}
-            <form action="{% url 'replays:add' %}?task_id={{ task.id }}" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                <div class="input-group">
-                    {{ field }}
-                </div>
-                {% endfor %}
-                </textarea>
-                <input type="submit" value="Отправить">
-            </form>
-        {% else %}
-        <p>Вы уже откликнулись</p>
-        {% endif %}
-
-        <ul class="list">
-            {% for replay in replays %}
-            <li class="list-item">{{ replay.user.username }}</li>
+        <div class="replay-list">
+            {% for item in task.replays.all %}
+            <div class="replay">
+                <h2>{{ item.user.username }}</h2>
+                <span>Рейтинг 3.4</span>
+            </div>
             {% endfor %}
-        </ul>
-    </section>
+        </div>
+    </div>
 </div>
 {% endblock %}

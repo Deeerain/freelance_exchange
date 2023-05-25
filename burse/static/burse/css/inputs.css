@@ -1,0 +1,35 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form > p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input, .btn, textarea {
+    background: none;
+    outline: none;
+    padding: 5px;
+    border: none;
+    color: black;
+    background-color: var(--white-color);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+}
+
+.btn,
+input[type="button"],
+input[type="submit"] {
+    cursor: pointer;
+    background: none;
+    color: var(--primary-color);
+}

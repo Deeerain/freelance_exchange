@@ -1,0 +1,45 @@
+{% extends 'burse/base.html' %}
+
+
+{% block content %}
+<div class="chat">
+    <form>
+        <textarea id="chat-text" cols="30" readonly rows="10"></textarea>
+        <input id="input" type="text" class="from-control">
+        <input id="submit" type="button" value="Отправить">
+    </form>
+
+    {{ request.user.username|json_script:"user_username" }}
+    {{ chat_box_name|json_script:"room-name" }}
+
+    <script>
+        const user_username = JSON.parse(document.getElementById('user_username').textContent)
+        const boxName = JSON.parse(document.getElementById('room-name').textContent)
+        const text_list = document.querySelector('#chat-text')
+
+        document.querySelector('#submit').onclick = (e) => {
+            const messageInputDom = document.querySelector('#input')
+            const message = messageInputDom.value
+
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'username': user_username,
+            }))
+
+            messageInputDom.value = ''
+            e.preventEvent()
+        }
+
+
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/chats/' + boxName + '/'
+        )
+
+        chatSocket.onmessage = (e) => {
+            const data = JSON.parse(e.data)
+
+            text_list.value += data.message + '\ssend by\s' + data.username + '\n'
+        }
+    </script>
+</div>
+{% endblock %}
