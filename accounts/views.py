@@ -1,7 +1,6 @@
-from typing import Any, Optional
+from typing import Any
 from django.conf import settings
 from django.db.models import Model, QuerySet
-from django.db.models.query import QuerySet
 
 from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse
@@ -33,6 +32,11 @@ class MyTasksView(ListView):
 
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().filter(employer=self.request.user)
+
+
+class MyTaskView(DetailView):
+    model = Task
+    template_name = 'accounts/my_task.html'
 
 
 class MyReplays(ListView):

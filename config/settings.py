@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'accounts',
     'tasks',
     'replays',
-    'offers',
     'chatting',
 ]
 

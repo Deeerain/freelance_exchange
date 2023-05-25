@@ -1,5 +1,16 @@
 {% extends 'burse/base.html' %}
 
+{% block extra_styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+{% endblock %}
+
 {% block content %}
-{{ object_list }}
+<div class="task-list">
+    {% for item in object_list %}
+    <section>
+        
+    </section>
+    {% endfor %}
+</div>
 {% endblock %}
