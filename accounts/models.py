@@ -5,12 +5,12 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Role(models.Model):
-    name = models.CharField(verbose_name=_('Name'), max_length=30,
+    name = models.CharField(verbose_name=_('Название'), max_length=30,
                             unique=True, db_index=True)
 
     class Meta:
-        verbose_name = _('Role')
-        verbose_name_plural = _('Roles')
+        verbose_name = _('Роль')
+        verbose_name_plural = _('Роли')
 
     def __str__(self) -> str:
         return self.name
@@ -18,13 +18,13 @@ class Role(models.Model):
 
 class User(AbstractUser):
     roles = models.ManyToManyField(
-        verbose_name=_('Roles'), to=Role, db_index=True)
+        verbose_name=_('Роли'), to=Role, db_index=True)
 
-    description = models.TextField('Описание', max_length=1000, blank=True)
+    description = models.TextField(_('Описание'), max_length=1000, blank=True)
 
     class Meta:
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
+        verbose_name = _('Пользователь')
+        verbose_name_plural = _('Пользователи')
 
     def __str__(self) -> str:
         return self.username

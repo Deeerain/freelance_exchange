@@ -8,7 +8,7 @@ from .managment import create_role
 class AccountsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'accounts'
-    verbose_name = _('Accounts')
+    verbose_name = _('Аккаунты')
 
     def ready(self) -> None:
         post_migrate.connect(
