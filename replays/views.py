@@ -7,7 +7,7 @@ from django.urls import reverse
 from tasks.models import Task
 
 from replays.forms import ReplayForm
-from replays.models import Replay
+from replays import services as replay_services
 
 
 class ReplayCreateView(CreateView):
@@ -18,11 +18,8 @@ class ReplayCreateView(CreateView):
         task_id = self.request.GET.get('task_id')
         task = get_object_or_404(self.model, pk=task_id)
 
-        replay = Replay()
-        replay.task = task
-        replay.user = self.request.user
-        replay.commet = form.cleaned_data['comment']
-        replay.save()
+        replay_services.create_replay(task=task, user=self.request.user,
+                                      **form.changed_data)
 
         return redirect(reverse('tasks:detail', kwargs={
             'category_slug': task.category.slug, 'slug': task.slug}))
