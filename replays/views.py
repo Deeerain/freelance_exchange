@@ -6,8 +6,8 @@ from django.urls import reverse
 
 from tasks.models import Task
 
-from .forms import ReplayForm
-from .models import Replay
+from replays.forms import ReplayForm
+from replays.models import Replay
 
 
 class ReplayCreateView(CreateView):

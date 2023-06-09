@@ -12,8 +12,8 @@ from django.urls import reverse
 from burse.views.mixins import SearchMixin
 from replays.forms import ReplayForm
 
-from .models import Task
-from .forms import CreateTaskForm
+from tasks.models import Task
+from tasks.forms import CreateTaskForm
 from replays.models import Replay
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Task, Category, Feedback
+from tasks.models import Task, Category, Feedback
 
 
 class FeedbackInline(admin.StackedInline):
