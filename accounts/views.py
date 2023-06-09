@@ -2,7 +2,8 @@ from typing import Any
 from django.conf import settings
 from django.db.models import Model, QuerySet
 
-from django.shortcuts import redirect, get_object_or_404
+from django.http.response import HttpResponseNotFound
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.models import AbstractBaseUser
@@ -12,7 +13,10 @@ from django.forms.models import BaseModelForm
 from accounts.forms import RegistrationForm
 
 from tasks.models import Task
+from tasks import services as task_services
 from replays.models import Replay
+
+from accounts import services as account_services
 
 
 USER_MODEL: AbstractBaseUser = get_user_model()
@@ -23,7 +27,10 @@ class ProfileView(DetailView):
     template_name = 'accounts/my_profile.html'
 
     def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
-        return get_object_or_404(self.model, pk=self.request.user.pk)    
+        try:
+            return account_services.get_user_by_pk(self.request.user.pk)
+        except Model.DoesNotExist:
+            return HttpResponseNotFound()
 
 
 class MyTasksView(ListView):
@@ -31,7 +38,7 @@ class MyTasksView(ListView):
     template_name = 'accounts/my_tasks.html'
 
     def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().filter(employer=self.request.user)
+        return task_services.task_get_all_by_employer(self.request.user)
 
 
 class MyTaskView(DetailView):
@@ -50,12 +57,13 @@ class RegistrationView(CreateView):
     form_class = RegistrationForm
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
-        user = USER_MODEL()
-        user.username = form.cleaned_data.get('username')
-        user.email = form.cleaned_data.get('email')
-        user.set_password(form.cleaned_data.get('email'))
-        user.save()
+        try:
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = account_services.user_register(username, email, password)
 
-        login(self.request, user)
-
-        return redirect(settings.LOGIN_REDIRECT_URL)
+            login(self.request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+        except account_services.UserAlreadyRegisteredError:
+            return self.get(self.request, *self.args, **self.kwargs)
