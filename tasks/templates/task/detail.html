@@ -47,6 +47,15 @@
             <input type="submit" value="Отправить">
         </form>
     </div>
+
+    {% for replay in task.replays.all %}
+    <div class="replay">
+        <h3>{{ replay.user.username }}</h3>
+        <p>{{ replay.comment }}</p>
+    </div>
+    {% empty %}
+    <p>Здеть пока нет откликов</p>
+    {% endfor %}
 </div>
 
 <div>
