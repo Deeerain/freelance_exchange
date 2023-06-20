@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  elastic:
+    container_name: exchange-search
+    image: elasticsearch:7.8.1
+    environment:
+      - discovery.type=single-node
+    networks:
+      - custom
+    ports:
+      - "9200:9200"
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - dev.env
+    depends_on:
+      - elastic
+      - db
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - custom
+
+  db:
+    container_name: exchange-db
+    image: postgres:latest
+    env_file:
+      - postgres.dev.env
+    networks:
+      - custom
+
+networks:
+  custom:
+    driver: bridge
