@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Replay
+from replays.models import Replay
 
 
 @admin.register(Replay)

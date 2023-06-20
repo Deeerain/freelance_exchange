@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;0,500;1,400&display=swap');
 @import url('general.css');
-@import url('tasks.css');
 @import url('inputs.css');
 
 :root {
@@ -8,7 +7,7 @@
     --dark-lightly: #393E46;
     --primary-color: #00ADB5;
     --white-color: white;
-    --background-color: #eeeeee;
+    --background-color: #fff;
     --padding: 0.8rem;
     font-family: 'roboto', sans-serif;
 }

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Replay
+from replays.models import Replay
 
 
 class ReplayForm(forms.ModelForm):

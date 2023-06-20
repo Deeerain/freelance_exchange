@@ -2,35 +2,17 @@
 
 {% block content_header_title %}Заказы{% endblock %}
 
+{% block extra_styles %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+{% endblock %}
+
 
 {% block content %}
 <div class="task-list">
-    {% for item in paginator.object_list %}
-    <section class="task-list__item task">
-        <div class="task__header">
-            <a href="{% url 'tasks:detail' slug=item.slug category_slug=item.category.slug  %}"><h1>{{ item.title }}</h1></a>
-            <div>
-                {{ item.description|safe }}
-            </div>
-        </div>
-        <div class="task__info">
-            {% if item.price %}
-            <span>{{ item.price }}</span>
-            {% else %}
-            <span>По договоренности</span>
-            {% endif %}
-            <span>
-                {% if item.replay_count %}
-                <small>Откликов</small>
-                {{ item.reply_count }}
-                {% else %}
-                <small>Без откликов</small>
-                {% endif %}
-            </span>
-            <time>{{ item.created }}</time>
-        </div>
-    </section>
-    {% endfor %}
+
+    {% include 'task/task_list.html' with tasks=paginator.object_list %}
 
     {% if is_paginated %}
     <div class="pagination">

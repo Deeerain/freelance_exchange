@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 from django.utils.translation import gettext_lazy as _
 
-from .managment import create_role
+from accounts.managment import create_role
 
 
 class AccountsConfig(AppConfig):

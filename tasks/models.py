@@ -15,7 +15,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = _('Категория')
-        verbose_name = _('Категории')
+        verbose_name_plural = _('Категории')
 
     def get_absolute_url(self) -> str:
         return reverse('tasks:list_by_category', kwargs={'slug': self.slug})
@@ -46,7 +46,7 @@ class Task(models.Model):
 
     class Meta:
         verbose_name = _('Задача')
-        verbose_name_prular = _('Задачи')
+        verbose_name_plural = _('Задачи')
 
     def save(self, *args, **kwargs) -> None:
         value = f'{self.title}-{str(self.employer.pk)}'
@@ -55,7 +55,7 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('tasks:detail', kwargs={
-            'category_slug': self.categories.slug, 'slug': self.slug
+            'category_slug': self.category.slug, 'slug': self.slug
             })
 
     def __str__(self) -> str:
