@@ -1,9 +1,9 @@
-from typing import Any
+from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404, render
-from django.views.generic import ListView, DetailView, CreateView, View
+from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
@@ -16,7 +16,7 @@ from replays.models import Replay
 from tasks import services as task_services
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     permission_required = 'tasks.add_task'
     login_url = 'accounts:signin'
     model = Task
@@ -28,7 +28,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return redirect(reverse('tasks:list'))
 
 
-class TaksListView(ListView, SearchMixin):
+class TaksListView(generic.ListView, SearchMixin):
     model = Task
     template_name = 'task/list.html'
     search_fields = ['title', 'description']
@@ -44,17 +44,23 @@ class TaksListView(ListView, SearchMixin):
         return task_services.task_all(**filter_values)
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(generic.edit.FormMixin, generic.DetailView):
     model = Task
     form_class = ReplayForm
     context_object_name = 'task'
     template_name = 'task/detail.html'
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context.setdefault('form', self.get_form())
+
+        return context
+
     def get_queryset(self) -> QuerySet[Any]:
-        return task_services.task_all()
+        return task_services.task_all_with_replays()
 
 
-class TaskReplayView(View):
+class TaskReplayView(generic.View):
     def get(self, request, category_slug, slug):
         task = get_object_or_404(Task, slug=slug)
         can_replay = not Replay.objects.filter(
