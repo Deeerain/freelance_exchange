@@ -4,7 +4,7 @@ from tasks import models as task_models
 
 
 def task_create(employer, **kwargs):
-    models.Task.objects.create(employer, **kwargs)
+    task_models.Task.objects.create(employer=employer, **kwargs)
 
 
 def task_all(**kwargs) -> models.QuerySet[task_models.Task]:
